@@ -1,0 +1,104 @@
+{
+  "builders": [
+    {
+      "type": "vmware-iso",
+      "iso_url": "isos/rhel-server-7.9-x86_64-dvd.iso",
+      "iso_checksum": "19d653ce2f04f202e79773a0cbeda82070e7527557e814ebbce658773fbe8191",
+      "ssh_username": "ea",
+      "ssh_password": "",
+      "ssh_wait_timeout": "30m",
+      "disk_type_id": "0",
+      "disk_size": "48000",
+      "disk_additional_size": [ "32000", "10240" ],
+      "tools_upload_flavor": "linux",
+      "guest_os_type": "rhel7_64Guest",
+      "shutdown_command": "sudo /sbin/halt -p",
+      "http_directory": "http",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-redhat-7.cfg<enter><wait>"
+      ],
+      "vmx_data": {
+        "memsize": "2048",
+        "numvcpus": "2",
+        "ethernet0.virtualDev": "vmxnet3",
+        "scsi0.virtualdev": "pvscsi",
+        "virtualhw.productcompatibility": "hosted",
+        "virtualhw.version": "15",
+        "vcpu.hotadd": "TRUE",
+        "mem.hotadd": "TRUE",
+        "tools.upgrade.policy": "manual"
+      }
+    },
+{
+      "CPUs": 1,
+      "RAM": 1024,
+      "RAM_reserve_all": false,
+      "boot_command": [
+        "<tab> text ks=hd:fd0:/ks-redhat-7.cfg<enter><wait>"
+      ],
+      "cluster": "homecluster",
+      "convert_to_template": true,
+      "datacenter": "homelab",
+      "datastore": "nas",
+      "disk_controller_type": ["pvscsi","pvscsi","pvscsi"],
+      "floppy_files": [
+        "{{template_dir}}/http/ks-redhat-7.cfg"
+      ],
+      "guest_os_type": "rhel7_64Guest",
+      "host": "192.168.100.156",
+      "insecure_connection": "true",
+      "iso_checksum": "19d653ce2f04f202e79773a0cbeda82070e7527557e814ebbce658773fbe8191",
+      "iso_paths": [
+        "[nas] isos/rhel-server-7.9-x86_64-dvd.iso"
+      ],
+      "network_adapters": [
+        {
+          "network": "VM Network",
+          "network_card": "vmxnet3"
+        }
+      ],
+      "notes": "built via packer",
+      "password": "",
+      "shutdown_command": "sudo /sbin/halt -p",
+      "ssh_password": "",
+      "ssh_timeout": "30m",
+      "ssh_username": "ea",
+      "storage": [
+        {
+          "disk_size": 48000,
+          "disk_controller_index": 0,
+          "disk_thin_provisioned": true
+        },
+        {
+          "disk_size": 32000,
+          "disk_controller_index": 1,
+          "disk_thin_provisioned": true
+        },
+        {
+          "disk_size": 10240,
+          "disk_controller_index": 2,
+          "disk_thin_provisioned": true
+        }
+      ],
+      "type": "vsphere-iso",
+      "vcenter_server": "192.168.100.155",
+      "username": "administrator@vsphere.local",
+      "vm_name": "packer-rhel-7"
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "sudo {{.Vars}} sh {{.Path}}",
+      "scripts": [
+        "scripts/ea.sh",
+        "scripts/cleanup.sh",
+        "scripts/zerodisk.sh",
+        "scripts/sleep.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "version": "{{env `VERSION`}}"
+  }
+}
