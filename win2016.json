@@ -1,0 +1,103 @@
+{
+  "builders": [
+{
+      "CPUs": 2,
+      "RAM": 4096,
+      "RAM_reserve_all": true,
+      "type": "vsphere-iso",
+      "vcenter_server": "192.168.100.155",
+      "username": "administrator@vsphere.local",
+      "password": "",
+      "cluster": "homecluster",
+      "datastore": "nas",
+      "datacenter": "homelab",
+      "insecure_connection": "true",
+      "vm_name": "packer-rhel-7",
+      "vm_version": 15,
+      "guest_os_type": "windows9Server64Guest",
+      "communicator": "winrm",
+      "winrm_username": "{{user `winrm_username`}}",
+      "winrm_password": "{{user `winrm_password`}}",
+      "boot_order": "disk,cdrom",
+      "create_snapshot": false,
+      "convert_to_template": true,
+      "disk_controller_type": ["pvscsi","pvscsi","pvscsi"],
+      "floppy_files": [
+        "{{ template_dir }}/scripts/autounattend.xml",
+        "{{ template_dir }}/scripts/vmtools.bat",
+        "{{ template_dir }}/scripts/firstboot.ps1"
+    ],
+    "iso_paths": [
+      "[nas] isos/winsrv2016dc1709en.iso",
+      "[] /vmimages/tools-isoimages/windows.iso"
+    ],
+    "network_adapters": [
+      {
+        "network": "VM Network",
+        "network_card": "vmxnet3"
+      }
+    ],
+    "storage": [
+      {
+        "disk_size": 48000,
+        "disk_controller_index": 0,
+        "disk_thin_provisioned": true
+      },
+      {
+        "disk_size": 32000,
+        "disk_controller_index": 1,
+        "disk_thin_provisioned": true
+      },
+      {
+        "disk_size": 10240,
+        "disk_controller_index": 2,
+        "disk_thin_provisioned": true
+      }
+    ],
+    "content_library_destination": {
+      "library": "Templates",
+      "name": "windows2016-{{user `buildtime`}}",
+      "ovf": false,
+      "destroy": true
+  },
+  "remove_cdrom": "true",
+  "notes": "Default User: {{user `winrm_username`}}\nDefault Password: {{user `winrm_password`}}\nBuilt by Packer @ {{isotime \"02-01-2006 03:04 PM\"}}."
+    }
+  ],
+  "provisioners": [
+    {
+      "sources": [
+        "{ template_dir }}/config/cloudbase-init.conf",
+        "{{ template_dir }}/config/cloudbase-init-unattend.conf"
+      ],
+      "destination": "C:\\Windows\\Temp\\config\\",
+      "type": "file"
+    },
+    {
+      "scripts": [
+        "{ template_dir }}/scripts/00_initial_config.ps1",
+        "{{ template_dir }}/scripts/10_install_cloudbase_init.ps1"
+      ],
+      "type": "powershell"
+    },
+    {
+      "search_criteria": "IsInstalled=0",
+      "update_limit": 25,
+      "filters": [
+        "exclude:$_.Title -like '*Preview*'",
+        "include:$true"
+      ],
+      "type": "windows-update"
+    },
+    {
+      "scripts": [
+        "{ template_dir }}/scripts/90_cleanup.ps1"
+      ],
+      "type": "powershell"
+    }
+  ],
+  "sensitive-variables": [
+    "vcenter_password",
+    "winrm_password"
+  ]
+}

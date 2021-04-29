@@ -1,0 +1,22 @@
+{
+    "vcenter_server": "{{ env `VCSERVER`}}",
+    "vcenter_username": "{{ env `VCUSER`}}",
+    "vcenter_password": "{{ env `VCPASS`}}",
+    "vcenter_datastore": "{{ env `VCDATASTORE`}}",
+    "vcenter_folder": "{{ env `VCFOLDER`}}",
+    "vcenter_cluster": "{{ env `VCCLUSTER`}}",
+    "vcenter_network": "{{ env `VCNETWORK`}}",
+
+    "buildtime": "{{ env `BUILDTIME`}}",
+
+    "winrm_username": "Administrator",
+    "winrm_password": "{{ env `SSHPASS`}}",
+
+    "windows_2016_vm_name": "windows-server-2016",
+    "windows_2016_iso": "[{{ env `VCDATASTORE`}}] ISOs/WindowsServer2016.iso",
+    "windows_2016_checksum": "md5:70721288bbcdfe3239d8f8c0fae55f1f",
+
+    "windows_2019_vm_name": "windows-server-2019",
+    "windows_2019_iso": "[{{ env `VCDATASTORE`}}] ISOs/WindowsServer2019.iso",
+    "windows_2019_checksum": "md5:70fec2cb1d6759108820130c2b5496da"
+}

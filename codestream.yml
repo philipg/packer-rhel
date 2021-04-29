@@ -1,0 +1,599 @@
+---
+project: Management
+kind: PIPELINE
+name: Packer Template Builder
+icon: data:image/png;base64,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
+enabled: true
+concurrency: 1
+input:
+  Packer-Build-Images: CentOS-8,Windows-Server-2016,Windows-Server-2019
+  Packer-Build-Git-Repository: https://github.com/GaryFlynn/codestream-template-builder
+  Packer-Build-vCenter-Server: vCenterFQDN
+  Packer-Build-vCenter-User: vCenterUser
+  Packer-Build-vCenter-User-Password: vCenterPassword
+  Packer-Build-vCenter-Cluster: ClusterName
+  Packer-Build-vCenter-Datastore: DatastoreName
+  Packer-Build-vCenter-Folder: FolderName
+  Packer-Build-vCenter-Network: NetworkName
+  Packer-Build-vRA-Url: vRAURL
+  Packer-Build-vRA-Username: vRAUser
+  Packer-Build-vRA-Password: vRAPassword
+  Packer-Build-vRA-Project: vRAProject
+  Packer-Build-vRA-vSphere-Cloud-Account: vRAvSphereCloudAccount
+  Packer-Build-SSH-User: SshUserName
+  Packer-Build-SSH-Password: SshUserPassword
+  _build: 'true'
+  _debug: 'false'
+  _test: 'true'
+_inputMeta:
+  Packer-Build-vCenter-Network:
+    mandatory: true
+    description: Name of the DHCP enabled vCenter Network on which to build the VMs
+  _build:
+    mandatory: true
+    description: If set to false, the Packer build will be skipped.
+  Packer-Build-SSH-Password:
+    mandatory: true
+    description: SSH Password for the Packer built templates
+  Packer-Build-vCenter-User:
+    mandatory: true
+    description: Name of the vCenter User that Packer will use to build
+  Packer-Build-vRA-Username:
+    mandatory: true
+    description: Name of the vRealize Automation user that Code Stream will use to make API calls (username
+      for vSphere.local, username@domain.com for AD integrated)
+  Packer-Build-vCenter-Datastore:
+    mandatory: true
+    description: Name of the vCenter Datastore on which to build the VMs
+  Packer-Build-vRA-Password:
+    mandatory: true
+    description: Password of the vRealize Automation user that Code Stream will use to make API calls
+  Packer-Build-vCenter-Cluster:
+    mandatory: true
+    description: Name of the vCenter Cluster on which to build the VMs
+  Packer-Build-vRA-Project:
+    mandatory: true
+    description: Name of the vRealize Automation Project in which the test deployments are performed
+  _debug:
+    mandatory: true
+    description: If set to true, the pipeline will pause at the "debug" tasks
+  Packer-Build-vRA-Url:
+    mandatory: true
+    description: Base URL of the vRealize Automation environment (e.g. https://vra.fqdn)
+  Packer-Build-Images:
+    mandatory: true
+    description: Comma separated list of Packer Builder Image Names (e.g. used with the packer --only
+      flag)
+  Packer-Build-Git-Repository:
+    mandatory: true
+    description: URL of the Packer Template Repository
+  Packer-Build-vCenter-Folder:
+    mandatory: true
+    description: Name of the vCenter Folder in which to build the VMs
+  Packer-Build-vRA-vSphere-Cloud-Account:
+    mandatory: false
+    description: 'Name of the vSphere '
+  Packer-Build-SSH-User:
+    mandatory: true
+    description: SSH Username for the Packer built templates
+  Packer-Build-vCenter-User-Password:
+    mandatory: true
+    description: Password of the vCenter User that Packer will use to build
+  _test:
+    mandatory: true
+    description: If false, the test deployment of images will be skipped
+  Packer-Build-vCenter-Server:
+    mandatory: true
+    description: Name of the vCenter Server that Packer will use to build
+workspace:
+  endpoint: Docker - jump
+  image: garyflynn/codestream-ci-packer:latest
+  registry: ''
+  path: /build
+  autoCloneForTrigger: true
+  limits:
+    cpu: 1.0
+    memory: 512
+stageOrder:
+- Prepare Environment
+- Build
+- Test
+- Release
+stages:
+  Prepare Environment:
+    taskOrder:
+    - Configure Environment
+    - Get API Token
+    - Get vSphere Cloud Accounts,Get Project,Get Image Profiles
+    - Export Object IDs
+    - Debug
+    tasks:
+      Export Object IDs:
+        type: CI
+        input:
+          steps:
+          - echo '${Prepare Environment.Get vSphere Cloud Accounts.output.responseJson}' > vSphereCloudAccounts.json
+          - echo '${Prepare Environment.Get Project.output.responseJson}' > project.json
+          - echo '${Prepare Environment.Get Image Profiles.output.responseJson}' > imageProfiles.json
+          - ''
+          - export CloudAccountId=$(jq -r '.content[] | select( .hostName == "${input.Packer-Build-vCenter-Server}")
+            | .id' vSphereCloudAccounts.json)
+          - export ExternalRegionId=$(jq -r '.content[] | select( .hostName == "${input.Packer-Build-vCenter-Server}")
+            | .enabledRegionIds[0]' vSphereCloudAccounts.json)
+          - export RegionId=$(jq -r '.content[] | select( .hostName == "${input.Packer-Build-vCenter-Server}")
+            | ._links.regions.hrefs[0]' vSphereCloudAccounts.json | sed 's|/iaas/api/regions/||')
+          - export ProjectId=$(jq -r '.content[0].id' project.json)
+          - export ImageProfileId=$(jq -r --arg externalRegionId "$ExternalRegionId" '.content[] | select(
+            .externalRegionId == $externalRegionId) | .id' imageProfiles.json)
+          - ''
+          export:
+          - CloudAccountId
+          - ProjectId
+          - RegionId
+          - ImageProfileId
+          - ExternalRegionId
+          artifacts: [
+            ]
+          process: [
+            ]
+      Get vSphere Cloud Accounts:
+        type: REST
+        input:
+          action: get
+          url: ${input.Packer-Build-vRA-Url}/iaas/api/cloud-accounts-vsphere
+          headers:
+            Accept: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: ''
+      Get Project:
+        type: REST
+        input:
+          action: get
+          url: ${input.Packer-Build-vRA-Url}/iaas/api/projects?$filter=(name eq '${input.Packer-Build-vRA-Project}')
+          headers:
+            Accept: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: ''
+      Get API Token:
+        type: REST
+        input:
+          action: post
+          url: ${input.Packer-Build-vRA-Url}/csp/gateway/am/idp/auth/login?access_token
+          headers:
+            Accept: application/json
+            Content-Type: application/json
+          payload: |-
+            {
+              "username": "${Prepare Environment.Configure Environment.output.exports.vraUser}",
+              "password": "${input.Packer-Build-vRA-Password}",
+              "domain": "${Prepare Environment.Configure Environment.output.exports.vraDomain}"
+            }
+      Get Image Profiles:
+        type: REST
+        input:
+          action: get
+          url: ${input.Packer-Build-vRA-Url}/iaas/api/image-profiles
+          headers:
+            Accept: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: ''
+      Configure Environment:
+        type: CI
+        input:
+          steps:
+          - export BUILDTIME="$(date "+%Y%m%d-%H%M%S")"
+          - ''
+          - '# Create environment variables'
+          - cat <<EOF >> /build/packer.secrets
+          - export VCPASS='${input.Packer-Build-vCenter-User-Password}'
+          - export VCSERVER="${input.Packer-Build-vCenter-Server}"
+          - export VCUSER="${input.Packer-Build-vCenter-User}"
+          - export VCDATASTORE="${input.Packer-Build-vCenter-Datastore}"
+          - export VCFOLDER="${input.Packer-Build-vCenter-Folder}"
+          - export VCCLUSTER="${input.Packer-Build-vCenter-Cluster}"
+          - export VCNETWORK="${input.Packer-Build-vCenter-Network}"
+          - export SSHUSER="${input.Packer-Build-SSH-User}"
+          - export SSHPASS="${input.Packer-Build-SSH-Password}"
+          - export BUILDTIME=$BUILDTIME
+          - EOF
+          - '# Split the username for domain authentication'
+          - IFS="@" read user domain <<< "${input.Packer-Build-vRA-Username}"
+          - export vraUser=$user
+          - export vraDomain=$domain
+          - '# Get templates from git'
+          - git clone ${input.Packer-Build-Git-Repository} templates
+          - ''
+          - ''
+          - ''
+          export:
+          - BUILDTIME
+          - vraUser
+          - vraDomain
+          artifacts: [
+            ]
+          process: [
+            ]
+      Debug:
+        type: UserOperation
+        preCondition: '"${input._debug}" == "true"'
+        input:
+          approvers:
+          - ${requestBy}
+          approverGroups: [
+            ]
+          summary: Check values
+          description: ''
+          sendemail: false
+          expiration: 3
+          expirationUnit: DAYS
+          pipelineName: ${name}
+          cancelPreviousPendingUserOp: false
+  Build:
+    taskOrder:
+    - Build Packer Images
+    - Trigger Image Enumeration
+    - Wait For Enumeration
+    - Get Images
+    tasks:
+      Wait For Enumeration:
+        type: POLL
+        preCondition: '"${input._build}" == "true"'
+        input:
+          url: ${input.Packer-Build-vRA-Url}/iaas/api/request-tracker/${Build.Trigger Image Enumeration.output.responseBody.id}
+          pollCount: 5
+          pollIntervalSeconds: 60
+          ignoreFailure: true
+          headers:
+            Accept: application/json
+            Content-Type: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          exitCriteria:
+            success: status == 'FINISHED'
+            failure: status == 'FAILED'
+      Trigger Image Enumeration:
+        type: REST
+        preCondition: '"${input._build}" == "true"'
+        input:
+          action: post
+          url: ${input.Packer-Build-vRA-Url}/iaas/api/cloud-accounts/${Prepare Environment.Export Object
+            IDs.output.exports.CloudAccountId}/private-image-enumeration
+          headers:
+            Accept: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: ''
+      Build Packer Images:
+        type: CI
+        preCondition: '"${input._build}" == "true"'
+        input:
+          steps:
+          - set +x
+          - source /build/packer.secrets
+          - set -x
+          - ''
+          - cd /build/templates/
+          - '# Validate config'
+          - packer validate -var-file=variables.json -only=${input.Packer-Build-Images} all.json
+          - '# Build validated config'
+          - packer build -force -var-file=variables.json -only=${input.Packer-Build-Images} all.json
+          export: [
+            ]
+          artifacts: [
+            ]
+          process: [
+            ]
+      Get Images:
+        type: REST
+        input:
+          action: get
+          url: ${input.Packer-Build-vRA-Url}/iaas/api/fabric-images?$filter=(name eq '*-${Prepare Environment.Configure
+            Environment.output.exports.BUILDTIME}')
+          headers:
+            Content-Type: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+            Accept: application/json
+          payload: ''
+  Test:
+    taskOrder:
+    - Create Image Profile JSON
+    - Debug
+    - Create Image Profile,Update Image Profile
+    - Create Blueprint
+    - Request Deployment
+    - Wait For Deployment
+    - Test Images
+    - Delete Deployment,Delete Blueprint
+    tasks:
+      Request Deployment:
+        type: REST
+        preCondition: '"${input._test}" == "true"'
+        input:
+          action: post
+          url: ${input.Packer-Build-vRA-Url}/blueprint/api/blueprint-requests
+          headers:
+            Content-Type: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: |-
+            {
+                "blueprintId": "${Test.Create Blueprint.output.responseJson.id}"
+            }
+      Delete Blueprint:
+        type: REST
+        ignoreFailure: true
+        preCondition: '"${input._test}" == "true"'
+        input:
+          action: delete
+          url: ${input.Packer-Build-vRA-Url}/blueprint/api/blueprints/${Test.Create Blueprint.output.responseJson.id}
+          headers:
+            Content-Type: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: ''
+      Wait For Deployment:
+        type: POLL
+        preCondition: '"${input._test}" == "true"'
+        input:
+          url: ${input.Packer-Build-vRA-Url}/blueprint/api/blueprint-requests/${Test.Request Deployment.output.responseJson.id}
+          pollCount: 60
+          pollIntervalSeconds: 60
+          ignoreFailure: true
+          headers:
+            Accept: application/json
+            Content-Type: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          exitCriteria:
+            success: status == 'FINISHED'
+            failure: status == 'FAILED'
+      Test Images:
+        type: UserOperation
+        preCondition: '"${input._test}" == "true"'
+        input:
+          approvers:
+          - ${requestBy}
+          approverGroups: [
+            ]
+          summary: Please test the deployed images
+          description: ''
+          sendemail: false
+          expiration: 3
+          expirationUnit: DAYS
+          pipelineName: ${name}
+          cancelPreviousPendingUserOp: false
+      Create Image Profile:
+        type: REST
+        preCondition: '"${Prepare Environment.Export Object IDs.output.exports.ImageProfileId}" == ""'
+        input:
+          action: post
+          url: ${input.Packer-Build-vRA-Url}/iaas/api/image-profiles
+          headers:
+            Content-Type: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: ${Test.Create Image Profile JSON.output.exports.profileJson}
+      Update Image Profile:
+        type: REST
+        preCondition: '"${Prepare Environment.Export Object IDs.output.exports.ImageProfileId}" != ""'
+        input:
+          action: patch
+          url: ${input.Packer-Build-vRA-Url}/iaas/api/image-profiles/${Prepare Environment.Export Object
+            IDs.output.exports.ImageProfileId}
+          headers:
+            Content-Type: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: ${Test.Create Image Profile JSON.output.exports.profileJson}
+      Create Blueprint:
+        type: REST
+        preCondition: '"${input._test}" == "true"'
+        input:
+          action: post
+          url: ${input.Packer-Build-vRA-Url}/blueprint/api/blueprints
+          headers:
+            Content-Type: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: ${Test.Create Image Profile JSON.output.exports.blueprintJson}
+      Create Image Profile JSON:
+        type: CI
+        ignoreFailure: true
+        input:
+          steps:
+          - echo '${Build.Get Images.output.responseJson}' > images.json
+          - ''
+          - buildImages=${input.Packer-Build-Images}
+          - buildTime=${Prepare Environment.Configure Environment.output.exports.BUILDTIME}
+          - regionId=${Prepare Environment.Export Object IDs.output.exports.RegionId}
+          - projectId=${Prepare Environment.Export Object IDs.output.exports.ProjectId}
+          - externalRegionId=${Prepare Environment.Export Object IDs.output.exports.ExternalRegionId}
+          - imageProfileId=${Prepare Environment.Export Object IDs.output.exports.ImageProfileId}
+          - ''
+          - '# If there''s an existing image profile, clone it stripping out extra fields, if not, create
+            one'
+          - if [ "$imageProfileId" = "" ]; then
+          - '    jq -n --arg name packer-image-profile ''{"name":$name}'' > newImageProfile.json'
+          - else
+          - '    jq --arg externalRegionId $externalRegionId ''.content[] | select(.externalRegionId ==
+            $externalRegionId)'' imageProfiles.json | jq ''del(.. | ._links?, .osFamily?, .externalRegionId?,
+            .isPrivate?, .externalId?, .updatedAt?, .organizationId?, .orgId?) | del(.id)'' > newImageProfile.json'
+          - fi
+          - '# Add in the Region ID'
+          - echo $(jq --arg regionId $regionId '.regionId = $regionId' newImageProfile.json) > newImageProfile.json
+          - ''
+          - ''
+          - for image in $(echo "$buildImages" | tr ',' ' '); do
+          - '    templateName=$(echo "$image-$buildTime" | tr ''[:upper:]'' ''[:lower:]'');'
+          - '    templateId=$(jq -r --arg templateName $templateName ''.content[] | select( .name == $templateName)
+            | .id'' images.json)'
+          - '    echo $(jq ".imageMappings.mapping.\"[Test] $image\".name = \"$templateName\""
+            newImageProfile.json) > newImageProfile.json '
+          - '    echo $(jq ".imageMappings.mapping.\"[Test] $image\".id = \"$templateId\"" newImageProfile.json)
+            > newImageProfile.json '
+          - done
+          - ''
+          - imageMapping=$(jq '.imageMappings.mapping' newImageProfile.json)
+          - echo $(jq --argjson imageMapping "$imageMapping" '.imageMapping = $imageMapping' newImageProfile.json
+            | jq 'del(.imageMappings)') > newImageProfile.json
+          - ''
+          - export profileJson=$(cat newImageProfile.json)
+          - ''
+          - '### Create Deployment JSON'
+          - cat <<EOF > new-blueprint.yaml
+          - 'formatVersion: 1'
+          - 'inputs: {}'
+          - 'resources:'
+          - EOF
+          - ''
+          - for image in $(echo "$buildImages" | tr ',' ' '); do
+          - '    cat <<EOF >> new-blueprint.yaml'
+          - '  Cloud_Machine_$image:'
+          - '    type: Cloud.Machine'
+          - '    properties:'
+          - '      image: ''[Test] $image'''
+          - '      flavor: small'
+          - '      constraints:'
+          - '        - tag: ''cloud:vsphere'''
+          - EOF
+          - done
+          - '# Replace new lines with \n'
+          - blueprintYAML=$(sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/\\n/g' new-blueprint.yaml)
+          - ''
+          - cat <<EOF > new-blueprint.json
+          - '{ "projectId": "$projectId", "name": "Packer-Test-Blueprint", "description": "Blueprint to
+            test Packer Image builds", "status": "DRAFT", "content": "$blueprintYAML" }'
+          - EOF
+          - ''
+          - export blueprintJson=$(cat new-blueprint.json)
+          - ''
+          - ''
+          export:
+          - profileJson
+          - blueprintJson
+          artifacts: [
+            ]
+          process: [
+            ]
+      Debug:
+        type: UserOperation
+        preCondition: '"${input._debug}" == "true"'
+        input:
+          approvers:
+          - ${requestBy}
+          approverGroups: [
+            ]
+          summary: Check values
+          description: ''
+          sendemail: false
+          expiration: 3
+          expirationUnit: DAYS
+          pipelineName: ${name}
+          cancelPreviousPendingUserOp: false
+      Delete Deployment:
+        type: REST
+        preCondition: '"${input._test}" == "true"'
+        input:
+          action: delete
+          url: ${input.Packer-Build-vRA-Url}/iaas/api/deployments/${Test.Request Deployment.output.responseJson.deploymentId}
+          headers:
+            Content-Type: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: ''  
+  Release:
+    taskOrder:
+    - Get Image Profiles
+    - Create Image Profile JSON
+    - Debug
+    - Create Image Profile,Update Image Profile
+    tasks:
+      Get Image Profiles:
+        type: REST
+        input:
+          action: get
+          url: ${input.Packer-Build-vRA-Url}/iaas/api/image-profiles
+          headers:
+            Accept: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: ''
+      Create Image Profile:
+        type: REST
+        preCondition: '"${Release.Create Image Profile JSON.output.exports.imageProfileId}" == ""'
+        input:
+          action: post
+          url: ${input.Packer-Build-vRA-Url}/iaas/api/image-profiles
+          headers:
+            Content-Type: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: ${Release.Create Image Profile JSON.output.exports.profileJson}
+      Update Image Profile:
+        type: REST
+        preCondition: '"${Release.Create Image Profile JSON.output.exports.imageProfileId}" != ""'
+        input:
+          action: patch
+          url: ${input.Packer-Build-vRA-Url}/iaas/api/image-profiles/${Release.Create Image Profile JSON.output.exports.imageProfileId}
+          headers:
+            Content-Type: application/json
+            Authorization: ${Prepare Environment.Get API Token.output.responseHeaders.Authorization}
+          payload: ${Release.Create Image Profile JSON.output.exports.profileJson}
+      Create Image Profile JSON:
+        type: CI
+        input:
+          steps:
+          - echo '${Release.Get Image Profiles.output.responseJson}' > imageProfiles.json
+          - ''
+          - buildImages=${input.Packer-Build-Images}
+          - buildTime=${Prepare Environment.Configure Environment.output.exports.BUILDTIME}
+          - regionId=${Prepare Environment.Export Object IDs.output.exports.RegionId}
+          - projectId=${Prepare Environment.Export Object IDs.output.exports.ProjectId}
+          - externalRegionId=${Prepare Environment.Export Object IDs.output.exports.ExternalRegionId}
+          - export imageProfileId=${Prepare Environment.Export Object IDs.output.exports.ImageProfileId}
+          - ''
+          - '# If there''s an existing image profile, clone it stripping out extra fields, if not, create
+            one'
+          - if [ "$imageProfileId" = "" ]; then
+          - '    jq -n --arg name packer-image-profile ''{"name":$name}'' > releaseProfile.json'
+          - else
+          - '    jq --arg externalRegionId $externalRegionId ''.content[] | select(.externalRegionId ==
+            $externalRegionId)'' imageProfiles.json | jq ''del(.. | ._links?, .osFamily?, .externalRegionId?,
+            .isPrivate?, .externalId?, .updatedAt?, .organizationId?, .orgId?) | del(.id)'' > releaseProfile.json'
+          - fi
+          - '# Add in the Region ID'
+          - echo $(jq --arg regionId $regionId '.regionId = $regionId' releaseProfile.json) > releaseProfile.json
+          - ''
+          - ''
+          - for image in $(echo "$buildImages" | tr ',' ' '); do
+          - '    templateName=$(echo "$image-$buildTime" | tr ''[:upper:]'' ''[:lower:]'');'
+          - '    templateId=$(jq -r --arg templateName $templateName ''.content[] | select( .name == $templateName)
+            | .id'' images.json)'
+          - ''
+          - '    echo $(jq ".imageMappings.mapping.\"$image\".name = \"$templateName\"" releaseProfile.json)
+            > releaseProfile.json '
+          - '    echo $(jq ".imageMappings.mapping.\"$image\".id = \"$templateId\"" releaseProfile.json)
+            > releaseProfile.json '
+          - done
+          - ''
+          - imageMapping=$(jq '.imageMappings.mapping' releaseProfile.json)
+          - echo $(jq --argjson imageMapping "$imageMapping" '.imageMapping = $imageMapping' releaseProfile.json
+            | jq 'del(.imageMappings)') > releaseProfile.json
+          - ''
+          - '# Remove the Packer Test image mappings'
+          - echo $(jq 'delpaths([paths | select(.[-1] | strings | contains("Test"))])' releaseProfile.json)
+            > releaseProfile.json
+          - ''
+          - export profileJson=$(cat releaseProfile.json)
+          - ''
+          export:
+          - profileJson
+          - imageProfileId
+          artifacts: [
+            ]
+          process: [
+            ]
+      Debug:
+        type: UserOperation
+        preCondition: '"${input._debug}" == "true"'
+        input:
+          approvers:
+          - ${requestBy}
+          approverGroups: [
+            ]
+          summary: Check values
+          description: ''
+          sendemail: false
+          expiration: 3
+          expirationUnit: DAYS
+          pipelineName: ${name}
+          cancelPreviousPendingUserOp: false

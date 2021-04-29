@@ -1,9 +1,0 @@
-[
-  {
-    "Description": "rhel7",
-    "Format": "ova",
-    "UserBucket": {
-        "S3Bucket": "phil-ovf-files",
-        "S3Key": "packer_rhel7.ova"
-    }
-}]
